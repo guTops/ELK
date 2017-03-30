@@ -1,0 +1,22 @@
+1.
+curl -XPUT 'http://localhost:9200/myweibo/' -d '{
+	"setting":{
+		"index":{
+			"number_of_shards":5,
+			"number_of_replicas":1	//设置当前索引的副本数量
+		}
+	}
+}'
+
+2.也可以使用_setting子句实现其相应功能
+curl -XPUT 'http://localhost:9200/myweibo/_setting' -d '{
+	"index":{
+		"number_of_replicas":7
+	}
+}'
+
+number_of_replicas---设置当前索引的副本数量
+block.read_only---如设为true，则当前索引只读
+block.read---如设为true，则禁止读取操作
+block.write---如设为true，则禁止写操作
+block.metadata---如设为true，则禁止对metadata操作

@@ -1,0 +1,34 @@
+url:(PUT)http://localhost:9200/test/news/_mapping/
+{
+	"news":{	//建立news的Type
+		"properties":{		//下面定义各个字段
+			"content":{		//content字段的结构设计
+				"type":"string",//当前字段为字符串类型
+				"stroe":"no",	//当前字段不存储
+				"term_analyzer":"with_positons_offsets",	//不仅保存分隔后的词，还保存词之间的距离
+				"index_analyzer":"ik",	//设定索引是用的分词器是IK分析器
+				"search_analyzer":"ik"	//设定搜索该字段时用的分词器是IK分析器
+			},
+			"title":{	//对title字段的机构设计
+				"type":"string",
+				"store":"no",
+				"term_analyzer":"with_positons_offsets",
+				"index_analyzer":"ik",
+				"search_analyzer":"ik",
+				"boost":5
+			},
+			"author":{		//对author字段的结构设计
+				"type":"string",
+				"index":"no_analyzed"	//设定该字段为不使用分词
+			},
+			"publish_date":{
+				"type":"date",		//对publish_date字段的结构设计
+				"format":"yyyy/mm/dd"	//设定该日期字段的格式
+			},
+			"category":{	//对category字段的结构设计
+				"type":"string",
+				"index":"no_analyzed"
+			}
+		}	
+	}
+}

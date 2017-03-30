@@ -1,0 +1,67 @@
+{
+	"from":0,	//检索结果集合的起始位置
+	"size":10:	//返回的检索结果数量
+	"fields":[	//指定检索结果documents集合中含有哪些域
+		"title",
+		"content",
+		"publish_date",
+		"category",
+		"author"
+	],
+	"sort":[	//定义排序方式
+		{
+			"publish_date":{	//搜索结果按照publish_date进行排序
+				"order":"asc"	//按正序排序
+			}
+		},
+		"_score"	//先按照publish_date,再按照_score排序
+	],
+	"query":{
+		"bool":{	//构建布尔查询
+			"should":[
+				{
+					"term":{
+						"title":"中国"
+					}
+				},
+				{
+					"term":{
+						"content":"中国"
+					}
+				}
+			]
+		}
+	},
+	"filter":{	//创建过滤规则
+		"range":{	//按照区间进行过滤
+			"publish_date":{
+				"from":"2017/01/01",	//其实时间
+				"to":"2017/03/01",		//结束时间
+				"include_lower":true,
+				"include_upper":false
+			}
+		}
+	},
+	"highlight":{	//对高亮进行相关设置
+		"pre_tags":[	//高亮的前置标签
+			"<tag1>",
+			"<tag2>"
+		],
+		"post_tags":[	//高亮的后置标签
+			"</tag1>",
+			"</tag2>"
+		],
+		"fields":{		//需高亮的域
+			"title":{},
+			"content":{}
+		}
+	},
+	"facets":{		//构建聚合
+		"cate":{
+			"terms":{
+				"field":"category"
+			}
+		}
+	}
+	
+}

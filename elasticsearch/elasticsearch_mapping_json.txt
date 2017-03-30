@@ -1,0 +1,15 @@
+
+curl -XPUT http://127.0.0.1:9200/usertest -d 
+
+{
+	"mapping":{
+		"_default":{
+			"properties":{
+				"imei":{"type":"integer","index":"not_analyzed"},
+				"ctime":{"type":"date","index":"not_analyzed"},
+				"country":{"type":"string"},
+				"hour":{"type":"string"}
+			}
+		}
+	}
+}
